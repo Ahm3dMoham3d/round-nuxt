@@ -1,7 +1,64 @@
 <template>
-  <button>hxcvello world</button>
+  <button :class="buttonClass">
+    <Icon
+      v-if="icon && iconPosition === 'prepend'"
+      :name="icon"
+      :class="iconClass"
+    />
+
+    {{ label }}
+    <Icon
+      v-if="icon && iconPosition === 'append'"
+      :name="icon"
+      :class="iconClass"
+    />
+  </button>
 </template>
-<script>
-export default {};
+
+<script setup lang="ts">
+const props = defineProps({
+  label: { type: String, required: true },
+  size: {
+    type: String,
+    default: "md",
+    validator: (value) => ["md", "lg", "xl"].includes(value),
+  },
+  color: {
+    type: String,
+    default: "primary",
+    validator: (value) => ["primary", "accent"].includes(value),
+  },
+  icon: { type: String, default: null },
+  iconPosition: {
+    type: String,
+    default: "prepend",
+    validator: (value) => ["prepend", "append"].includes(value),
+  },
+});
+
+const buttonClass = computed(() => {
+  const sizeClasses = {
+    md: "px-4 py-2 text-sm",
+    lg: "px-6 py-3 text-lg",
+    xl: "px-8 py-4 text-xl",
+  };
+
+  const colorClasses = {
+    primary: "bg-primary text-white",
+    accent: "bg-accent text-black",
+  };
+
+  return `rounded-full inline-flex items-center gap-2 ${
+    sizeClasses[props.size]
+  } ${colorClasses[props.color]}`;
+});
+
+const iconClass = computed(() => {
+  const sizeClasses = {
+    md: "text-base",
+    lg: "text-lg",
+    xl: "text-xl",
+  };
+  return sizeClasses[props.size];
+});
 </script>
-<style lang=""></style>

@@ -5,3 +5,8 @@
     </NuxtLayout>
   </div>
 </template>
+<style>
+* {
+  font-family: "Cairo", sans-serif;
+}
+</style>

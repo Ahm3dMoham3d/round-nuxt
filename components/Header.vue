@@ -17,9 +17,9 @@
       <hr class="border-white my-4" />
       <div class="flex items-center justify-between">
         <img src="/public/assets/images/logo.png" />
-        <div class="flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-6">
           <NuxtLink
-            class="text-sm text-white"
+            class="nuxt-link text-sm text-white font-semibold"
             v-for="(link, index) in links"
             :key="index"
             to="/"
@@ -27,8 +27,16 @@
             {{ link }}
           </NuxtLink>
         </div>
-        <UiButton />
+        <UiButton
+          class="hidden md:flex"
+          icon-position="prepend"
+          icon="uil:user"
+          label="التسجيل"
+        />
       </div>
+      <button>
+        <Icon name="bi:menu" />
+      </button>
     </div>
   </nav>
 </template>
@@ -43,4 +51,24 @@ const links = [
   "ألبوم الصور",
 ];
 </script>
-<style></style>
+<style scoped>
+.nuxt-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.nuxt-link::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  right: 0;
+  width: 0;
+  height: 1px;
+  background-color: #189cce;
+  transition: all 0.3s ease;
+}
+
+.nuxt-link:hover::after {
+  width: 100%;
+}
+</style>
